@@ -3,8 +3,7 @@
 
 
 // Cho dinh dang node nhu sau:
-typedef struct LinklistNode
-{
+typedef struct LinklistNode{
     int value;
     LinklistNode *next;
 } LinklistNode;
@@ -14,6 +13,11 @@ LinklistNode *start = NULL;
 // Hoan thien cac function duoi day
 
 void DisplayLinklist(){
+    
+    if(start == NULL){
+        std::cout<< " Khong co Node nao trong array";
+        return;    
+    }
     LinklistNode *ptr = start;
     while (ptr != NULL){
         std::cout << ptr->value << ", ";
@@ -28,8 +32,7 @@ void InitLinklistWithVector(int *array, int size){
     LinklistNode *ptr;
     LinklistNode *NewNode;
 
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++){
         NewNode = new LinklistNode; // 70x,80x,90x
         NewNode->value = array[i];
         NewNode->next = NULL;
@@ -54,12 +57,12 @@ void InsertEnd(int a)
     Newnode = new LinklistNode;
     Newnode->value = a;
     Newnode->next = NULL;
-    LinklistNode *ptrr;
     if (start == NULL)
     {
-        start->value = a;
+        start = Newnode;
         return;
     }
+    LinklistNode *ptrr;
     ptrr = start;
     while (ptrr->next != NULL)
     {
@@ -68,8 +71,7 @@ void InsertEnd(int a)
     ptrr->next = Newnode;
 }
 
-void InsertBegin(int b)
-{
+void InsertBegin(int b){
     LinklistNode *Newnode1;
     Newnode1 = new LinklistNode;
     Newnode1->value = b;
@@ -84,19 +86,16 @@ void InsertIndex(int indexValue, int val)
     LinklistNode *ptr;
     LinklistNode *prev;
     NewNode2 = new LinklistNode;
-    ptr = new LinklistNode;
-    prev = new LinklistNode;
+    // ptr = new LinklistNode;
+    // prev = new LinklistNode;
 
     NewNode2->value = val;
     NewNode2->next = NULL;
-    if (indexValue == 0)
-    {
+    if (indexValue == 0){
         NewNode2->next = start;
         start = NewNode2; //                 0  1     2   3  4
         // vd indexvalue = 2 , chen 8 vao day 1, 2,[], 3, 4,  5
-    }
-    else
-    {
+    }else{
         ptr = start;
         int count = 1;
         while (count <= indexValue)
@@ -120,15 +119,20 @@ void InsertBefore(int indexValue, int val)
 
     NewNode = new LinklistNode;
     // 2 dong duoi co the //
-    ptr = new LinklistNode;
-    prev = new LinklistNode;
+    // ptr = new LinklistNode;
+    // prev = new LinklistNode;
 
     NewNode->value = val;
     NewNode->next = NULL;
 
     ptr = start;
-    while (ptr->value != indexValue)
-    {
+    if(ptr->value == val){
+        NewNode->next = ptr;
+        start = NewNode;
+        return;
+    }
+
+    while (ptr->value != indexValue){
         prev = ptr;
         ptr = ptr->next;
         if (ptr->next == NULL)
@@ -141,23 +145,21 @@ void InsertBefore(int indexValue, int val)
     NewNode->next = ptr;
 }
 
-void InsertAfter(int indexValue, int val)
-{
+void InsertAfter(int indexValue, int val){
     // vd 1,5,7,6,8,1,5,9,4;
     LinklistNode *NewNode;
     LinklistNode *ptr;
     LinklistNode *prev;
 
     NewNode = new LinklistNode;
-    ptr = new LinklistNode;
-    prev = new LinklistNode;
+    // ptr = new LinklistNode;
+    // prev = new LinklistNode;
 
     NewNode->value = val;
     NewNode->next = NULL;
 
     ptr = start;
-    while (ptr->value != indexValue)
-    {
+    while (ptr->value != indexValue){
         prev = ptr;
         ptr = ptr->next;
         if (ptr->next == NULL)
@@ -181,8 +183,6 @@ void DeleteAfter(int indexValue)
     LinklistNode *prev;
     // vd 10,24,4,11,18,17,3,7,3
 
-    before = start;
-    prev = start;
     ptr = start;
     if(start->value == indexValue){
         ptr = ptr->next;
@@ -190,6 +190,12 @@ void DeleteAfter(int indexValue)
         delete ptr;
         return;
     }
+    if(ptr->next == NULL){
+        std::cout<< "khong co node dang sau";
+        return;
+    }
+    before = start;
+    prev = start;
     while (ptr->value != indexValue){
         before = prev;
         prev = ptr;
@@ -199,10 +205,6 @@ void DeleteAfter(int indexValue)
             return;
         }
         
-    }
-    if(ptr->next == NULL){
-        std::cout<< "khong co node dang sau";
-        return;
     }
     before = prev;
     prev = ptr;
@@ -219,10 +221,8 @@ void DeleteBefore(int indexValue)
     LinklistNode *ptr;
     LinklistNode *prev;
 
-    before = start;
-    prev = start;
     ptr = start;
-
+    
     if (start->value == indexValue)
     {
         std::cout << "Khong co node";
@@ -236,6 +236,8 @@ void DeleteBefore(int indexValue)
         start = ptr;
         return;
     }
+    before = start;
+    prev = start;
     // vd 10, 100, 24, 4, 11, 18, 17, 3, 7, 3, 9999
     while (ptr->value != indexValue){ // 24
         before = prev;
@@ -283,40 +285,40 @@ void PrintArrayWithAddresses(int *arr, int size)
 
 int main()
 {
-    int link1[9] = {10, 24, 4, 11, 18, 17, 3, 7, 3};
-    InitLinklistWithVector(link1, 9);
+    // int link1[9] = {10, 24, 4, 11, 18, 17, 3, 7, 3};
+    // InitLinklistWithVector(link1, 9);
 
     DisplayLinklist();
     std::cout << std::endl;
 
-    InsertEnd(8);
-    InsertBegin(23);
-    DisplayLinklist();
-    std::cout << std::endl;
+    // InsertEnd(8);
+    // InsertBegin(23);
+    // DisplayLinklist();
+    // std::cout << std::endl;
 
-    DeleteEnd();
-    DisplayLinklist();
-    std::cout << std::endl;
+    // DeleteEnd();
+    // DisplayLinklist();
+    // std::cout << std::endl;
 
-    DeleteBegin();
-    DisplayLinklist();
-    std::cout << std::endl;
+    // DeleteBegin();
+    // DisplayLinklist();
+    // std::cout << std::endl;
 
-    InsertBefore(24, 100);
-    DisplayLinklist();
-    std::cout << std::endl;
+    // InsertBefore(24, 100);
+    // DisplayLinklist();
+    // std::cout << std::endl;
 
-    InsertAfter(1, 9999);
-    DisplayLinklist();
-    std::cout << std::endl;
+    // InsertAfter(1, 9999);
+    // DisplayLinklist();
+    // std::cout << std::endl;
 
-    DeleteBefore(1000); // = 10 loi
-    DisplayLinklist();
-    std::cout << " Xoa trc " <<std::endl;
+    // DeleteBefore(1000); // = 10 loi
+    // DisplayLinklist();
+    // std::cout << " Xoa trc " <<std::endl;
 
-    DeleteAfter(999);
-    DisplayLinklist();
-    std::cout<<std::endl;
+    // DeleteAfter(999);
+    // DisplayLinklist();
+    // std::cout<<std::endl;
 
     return 0;
 }
