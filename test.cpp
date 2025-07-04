@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+
 // Cho dinh dang node nhu sau:
 typedef struct LinklistNode
 {
@@ -12,17 +13,18 @@ LinklistNode *start = NULL;
 // int array[5];
 // Hoan thien cac function duoi day
 
-void DisplayLinklist()
-{
+void DisplayLinklist(){
     LinklistNode *ptr = start;
-    while (ptr != NULL)
-    {
+    while (ptr != NULL){
         std::cout << ptr->value << ", ";
+        if(ptr == NULL){
+            std::cout<< "Node rong";
+        }
         ptr = ptr->next;
     }
+    
 }
-void InitLinklistWithVector(int *array, int size)
-{
+void InitLinklistWithVector(int *array, int size){
     LinklistNode *ptr;
     LinklistNode *NewNode;
 
@@ -37,7 +39,6 @@ void InitLinklistWithVector(int *array, int size)
             start = NewNode;
             continue;
         }
-
         ptr = start;
         while (ptr->next != NULL)
         {
