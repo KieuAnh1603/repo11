@@ -2,6 +2,7 @@
 #include <vector>
 
 
+
 // Cho dinh dang node nhu sau:
 typedef struct LinklistNode{
     int value;
@@ -283,10 +284,22 @@ void PrintArrayWithAddresses(int *arr, int size)
     }
 }
 
+bool empty(){
+    if(start == NULL){
+        return true;
+    }
+    return false;
+}
+
 int main()
 {
     // int link1[9] = {10, 24, 4, 11, 18, 17, 3, 7, 3};
     // InitLinklistWithVector(link1, 9);
+    if(empty()){
+        std::cout<< "linklist nay rong";
+    }else{
+        std::cout<< "linklist nay khong rong";
+    }
 
     DisplayLinklist();
     std::cout << std::endl;
